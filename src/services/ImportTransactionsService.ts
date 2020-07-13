@@ -1,8 +1,12 @@
+import { getCustomRepository } from 'typeorm';
+import TransactionsRepository from '../repositories/TransactionsRepository';
+
 import Transaction from '../models/Transaction';
 
 class ImportTransactionsService {
   async execute(): Promise<Transaction[]> {
-    // TODO
+    const transactionsRepository = getCustomRepository(TransactionsRepository);
+    return transactionsRepository;
   }
 }
 
