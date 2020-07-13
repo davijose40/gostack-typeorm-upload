@@ -32,12 +32,17 @@ class CreateTransactionService {
       await categoryRepository.save(titleCategory);
     }
 
+    const categoryRecord = await categoryRepository.findOne({
+      where: { title: category },
+    });
+    const category_id = categoryRecord?.id;
     const transaction = transactionsRepository.create({
       title,
       value,
       type,
+      category_id,
     });
-    // await transactionsRepository.save(transaction);
+    await transactionsRepository.save(transaction);
     return transaction;
   }
 }

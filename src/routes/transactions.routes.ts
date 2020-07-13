@@ -10,7 +10,10 @@ const transactionsRouter = Router();
 
 transactionsRouter.get('/', async (request: Request, response: Response) => {
   const transactionsRepository = getCustomRepository(TransactionsRepository);
-  const transactions = await transactionsRepository.find();
+  const transactions = await transactionsRepository.find({
+    relations: ['category'],
+  });
+
   const balance = await transactionsRepository.getBalance();
   const transactionsAndBalance = {
     transactions,
@@ -20,13 +23,13 @@ transactionsRouter.get('/', async (request: Request, response: Response) => {
 });
 
 transactionsRouter.post('/', async (request: Request, response: Response) => {
-  const { title, value, type, category_id } = request.body;
+  const { title, value, type, category } = request.body;
   const createTransactionServide = new CreateTransactionService();
   const transaction = await createTransactionServide.execute({
     title,
     value,
     type,
-    category_id,
+    category,
   });
 
   return response.json(transaction);
@@ -35,14 +38,16 @@ transactionsRouter.post('/', async (request: Request, response: Response) => {
 transactionsRouter.delete(
   '/:id',
   async (request: Request, response: Response) => {
-    // TODO
+    const { id } = request.params;
+    return response.json({ id });
   },
 );
 
 transactionsRouter.post(
   '/import',
   async (request: Request, response: Response) => {
-    // TODO
+    const { file } = request.body;
+    return response.json({ file });
   },
 );
 
