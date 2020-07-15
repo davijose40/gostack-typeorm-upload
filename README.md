@@ -1,5 +1,5 @@
 
-<img src="https://i.imgur.com/vpMolfl.png" alt="Gostack print">
+<img src="https://i.imgur.com/61BvYxZ.png" alt="Gostack print">
 
 <!-- name the thing -->
 # Desafio 06: Banco de Dados e upload de arquivos no Node.js
