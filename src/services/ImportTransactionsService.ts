@@ -41,7 +41,6 @@ class ImportTransactionsService {
         title: In(categories),
       },
     });
-
     const existentCategoriesTitles = existentCategories.map(
       (category: Category) => category.title,
     );
@@ -49,7 +48,6 @@ class ImportTransactionsService {
     const addCategoryTitles = categories
       .filter(category => !existentCategoriesTitles.includes(category))
       .filter((value, index, self) => self.indexOf(value) === index);
-
     const newCategories = categoriesRepository.create(
       addCategoryTitles.map(title => ({
         title,
@@ -63,9 +61,7 @@ class ImportTransactionsService {
         title: transaction.title,
         type: transaction.type,
         value: transaction.value,
-        category: finalCategories.find(
-          category => category.title === transaction.title,
-        ),
+        category: finalCategories.find(() => transaction.title),
       })),
     );
     await transactionsRepository.save(createdTransactions);
